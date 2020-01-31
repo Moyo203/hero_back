@@ -7,6 +7,7 @@ let conn = mysql.createConnection({
     user:'root',
     password:'wen1122yang',
     database:'wzhero',
+    dateStrings:true
 })
 //开启连接
 conn.connect()
