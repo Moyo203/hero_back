@@ -1,9 +1,18 @@
+//引入model层
+const heroModel = require('./model')
+
 //业务逻辑处理
 module.exports = {
     showIndexPage(req,res) {
-        res.render('index', {})
-
-    },
+        heroModel.getAllHeroData((err,result)=>{
+            if(err) return res.json({
+                 code:201,
+                 msg:'没有数据'
+            })
+            console.log(result);
+            res.render('index', {data:result})
+        })
+    }, 
     showAddPage(req,res) {
         res.render('add', {})
 
