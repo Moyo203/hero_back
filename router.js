@@ -17,5 +17,8 @@ let heroCtrl = require('./controller')
 .get('/info',(req,res)=>{
     heroCtrl.showInfoPage(req,res)
 }) 
+.get('/getAllHeroInfo',(req,res)=>{
+  heroCtrl.getAllHeroInfo(req,res) 
+}) 
 //暴露路由
 module.exports = router  

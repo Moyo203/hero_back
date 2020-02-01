@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Hero - Admin</title>
-  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
-</head>
-
-<body>
-  <header>
-    <div class="page-header container">
-      <h1>亡者农药 <small>英雄管理器</small></h1>
-    </div>
-  </header>
+<%- include('./layout/header.ejs')%>
   <div class="container hero-list">
     <a class="btn btn-success pull-right" href="./add">添加英雄</a>
     <table class="table table-hover">
       <thead>
-        <th>编号</th> 
+        <th>编号</th>
         <th>名称</th>
         <th>性别</th>
         <th>年龄</th>
@@ -26,24 +12,48 @@
         <th>操作</th>
       </thead>
       <tbody>
-       <% data.forEach((item,index)=>{ %>
-        <tr>
-          <td><%= index+1%></td>
-          <td><%= item.name%></td>
-          <td><%= item.gender%></td>
-          <td><%= item.age%></td>
-          <td><%= item.address%></td>
-          <td><%= item.ctime%></td>
-          <td>
-            <a href="/info?id=<%= item.id%>">查看</a>
-            <a href="/edit?id=<%= item.id%>">编辑</a>
-            <a href="javascript: ;"  data-id='<%= item.id%>'>删除</a>
-          </td>
-        </tr>
-       <% }) %>
+
       </tbody>
     </table>
   </div>
-</body>
+<%- include('./layout/footer.ejs')%>
 
-</html>
+
+<script type="text/html" id="heroList">
+  {{each data}}
+  <tr>
+    <td>{{$index+1}}</td>
+    <td>{{$value.name}}</td>
+    <td>{{$value.gender}}</td>
+    <td>{{$value.age}}</td>
+    <td>{{$value.address}}</td>
+    <td>{{$value.ctime}}</td>
+
+    <td>
+      <a href="/info?id={{$value.id}}">查看</a>
+      <a href="/edit?id={{$value.id}}">编辑</a>
+      <a href="javascript: ;" class="btn-del" data-id="{{$value.id}}">删除</a>
+    </td>
+  </tr>
+
+
+  {{/each}}
+</script>
+<script>
+  $(function () {
+
+    $.ajax({
+      type: 'get',
+      url: '/getAllHeroInfo',
+      success: function (res) {
+        console.log(res)
+        let htmlStr = template('heroList',res)
+        $('tbody').html(htmlStr)
+      }
+    })
+    $('tbody').on('click','.btn-del',function(e){
+      e.preventDefault();
+      console.log(1111)
+    })
+  })
+</script>

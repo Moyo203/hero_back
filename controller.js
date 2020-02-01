@@ -6,10 +6,10 @@ module.exports = {
     showIndexPage(req,res) {
         heroModel.getAllHeroData((err,result)=>{
             if(err) return res.json({
-                 code:201,
+                 code:201, 
                  msg:'没有数据'
             })
-            console.log(result);
+            // console.log(result);
             res.render('index', {data:result})
         })
     }, 
@@ -24,5 +24,18 @@ module.exports = {
     showInfoPage(req,res) {
         res.render('info', {})
 
+    },
+    getAllHeroInfo(req,res){
+        heroModel.getAllHeroData((err,result)=>{
+            if(err) return res.json({
+                 code:201, 
+                 msg:'获取数据失败'
+            })
+           res.json({
+               code:200,
+               msg:'获取数据成功',
+               data:result
+           })
+        })
     }
 }

@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Hero - Admin</title>
-  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
-</head>
-
-<body>
-  <header>
-    <div class="page-header container">
-      <h1><a href="/">亡者农药</a> <small>英雄管理器</small></h1>
-    </div>
-  </header>
+<%- include('./layout/header.ejs')%>
   <div class="container hero-list">
     <form >
        <!-- 添加一个隐藏域，隐藏域就是在页面上用户看不到，但是在HTML结构中是存在的，这样的东西，我们一般都是放在表单中用来帮助我们存储一个数据使用 -->
@@ -54,26 +40,4 @@
       </div>
     </form>
   </div>
-  <script src="/node_modules/jquery/dist/jquery.js"></script>
-  <script>
-    $(function () {
-      $('.btn-primary').on('click', function () {
-        $.ajax({
-          type:'post',
-          url:'/editHeroInfo',
-          data:$('form').serialize(),
-          dataType:'json',
-          success:function(res){
-            // console.log(res);
-            if(res.code == 200) {
-               location.href = '/'
-             }
-          }
-        })
-      })
-    })
-  </script>
-</body>
-
-
-</html>
+  <%- include('./layout/footer.ejs')%>
