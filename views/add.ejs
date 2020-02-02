@@ -18,6 +18,10 @@
         </div>
       </div>
       <div class="form-group">
+        <label>英雄年龄</label>
+        <input type="text" name="age" class="form-control" placeholder="请输入英雄年龄">
+      </div>
+      <div class="form-group">
         <label>英雄地址</label>
         <input type="text" name="address" class="form-control" placeholder="请输入英雄地址">
       </div>
@@ -26,3 +30,22 @@
   </div>
   <%- include('./layout/footer.ejs')%>
 
+<script>
+$(function(){
+  $('.btn-success').on('click',function(e){
+    e.preventDefault();
+    let hero = $('#form').serialize()
+    $.ajax({
+      type:'post',
+      url:'/addHeroInfo',
+      data:hero,
+      success:function(res){
+        // console.log(res)
+        if(res.code == 200){
+          window.location.href='/'
+        }
+      }
+    })
+  })
+})
+</script>

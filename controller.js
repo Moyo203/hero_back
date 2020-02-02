@@ -1,6 +1,7 @@
 //引入model层
 const heroModel = require('./model')
-
+// 引入时间
+const moment = require('moment')
 //业务逻辑处理
 module.exports = {
     showIndexPage(req,res) {
@@ -65,6 +66,21 @@ module.exports = {
                 code:201,
                 msg:'删除失败'
             })
+        })
+    },
+    // 添加英雄数据
+    addHeroInfo(req,res){
+        let hero = req.body;
+        hero.ctime = moment().format('YYYY-MM-DD HH:mm:ss')
+        heroModel.addHeroInfo(hero,result=>{
+            if(result) return res.json({
+                code:200,
+                msg:'添加成功'
+           })
+           res.json({
+               code:201,
+               msg:'添加失败'
+           })
         })
     }
 }

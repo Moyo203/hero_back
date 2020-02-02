@@ -60,9 +60,18 @@ module.exports = {
         callback(null,result)
       })
     },
+    //删除英雄数据
     deleteOneHero(id,callback){
       let sql = 'delete from heros where id=?'
       connection.query(sql,[id],(err,result)=>{
+        if(err) return callback(false)
+        callback(true)
+      })
+    },
+    // 添加英雄数据
+    addHeroInfo(hero,callback){
+      let sql = 'insert into heros set ?'
+      connection.query(sql,[hero],(err,result)=>{
         if(err) return callback(false)
         callback(true)
       })

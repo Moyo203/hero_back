@@ -28,5 +28,9 @@ let heroCtrl = require('./controller')
 .get('/deleteOneHero',(req,res)=>{
     heroCtrl.deleteOneHero(req,res)
 })
+// 添加英雄数据
+.post('/addHeroInfo',(req,res)=>{
+    heroCtrl.addHeroInfo(req,res)
+})
 //暴露路由
 module.exports = router  
