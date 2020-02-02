@@ -1,21 +1,21 @@
 <%- include('./layout/header.ejs')%>
-  <div class="container hero-list">
-    <a class="btn btn-success pull-right" href="./add">添加英雄</a>
-    <table class="table table-hover">
-      <thead>
-        <th>编号</th>
-        <th>名称</th>
-        <th>性别</th>
-        <th>年龄</th>
-        <th>地址</th>
-        <th>创建时间</th>
-        <th>操作</th>
-      </thead>
-      <tbody>
+<div class="container hero-list">
+  <a class="btn btn-success pull-right" href="./add">添加英雄</a>
+  <table class="table table-hover">
+    <thead>
+      <th>编号</th>
+      <th>名称</th>
+      <th>性别</th>
+      <th>年龄</th>
+      <th>地址</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </thead>
+    <tbody>
 
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+  </table>
+</div>
 <%- include('./layout/footer.ejs')%>
 
 
@@ -28,32 +28,46 @@
     <td>{{$value.age}}</td>
     <td>{{$value.address}}</td>
     <td>{{$value.ctime}}</td>
-
     <td>
       <a href="/info?id={{$value.id}}">查看</a>
       <a href="/edit?id={{$value.id}}">编辑</a>
       <a href="javascript: ;" class="btn-del" data-id="{{$value.id}}">删除</a>
     </td>
   </tr>
-
-
   {{/each}}
 </script>
 <script>
   $(function () {
+    load()
 
-    $.ajax({
-      type: 'get',
-      url: '/getAllHeroInfo',
-      success: function (res) {
-        console.log(res)
-        let htmlStr = template('heroList',res)
-        $('tbody').html(htmlStr)
-      }
-    })
-    $('tbody').on('click','.btn-del',function(e){
+    function load() {
+      $.ajax({
+        type: 'get',
+        url: '/getAllHeroInfo',
+        success: function (res) {
+          console.log(res)
+          let htmlStr = template('heroList', res)
+          $('tbody').html(htmlStr)
+        }
+      })
+    }
+    $('tbody').on('click', '.btn-del', function (e) {
       e.preventDefault();
-      console.log(1111)
+      if (confirm('是否删除?')) {
+        $.ajax({
+          type: 'get',
+          url: '/deleteOneHero',
+          data: {
+            id: $(this).data('id')
+          },
+          success: function (res) {
+            // console.log(res)
+            if (res.code == 200) {
+              load();
+            }
+          }
+        })
+      }
     })
   })
 </script>

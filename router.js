@@ -20,5 +20,13 @@ let heroCtrl = require('./controller')
 .get('/getAllHeroInfo',(req,res)=>{
   heroCtrl.getAllHeroInfo(req,res) 
 }) 
+// 获取一个英雄数据
+.get('/getOneHero',(req,res)=>{
+    heroCtrl.getOneHeroInfo(req,res)
+})
+// 删除一个英雄数据
+.get('/deleteOneHero',(req,res)=>{
+    heroCtrl.deleteOneHero(req,res)
+})
 //暴露路由
 module.exports = router  

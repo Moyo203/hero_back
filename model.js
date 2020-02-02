@@ -43,6 +43,7 @@ handleDisconnect();
 
 //处理数据
 module.exports = {
+  // 获取所有的英雄数据
     getAllHeroData(callback){
         //使用sql语句查询数据
         let sql = 'select * from heros'
@@ -50,5 +51,20 @@ module.exports = {
             if(err) return callback(err)
             callback(null,result)
         })
+    },
+    // 根据id获取某个英雄的数据
+    getOneHeroInfo(id,callback){
+      let sql = 'select * from heros where id=?'
+      connection.query(sql,[id],(err,result)=>{
+        if(err) return callback(err)
+        callback(null,result)
+      })
+    },
+    deleteOneHero(id,callback){
+      let sql = 'delete from heros where id=?'
+      connection.query(sql,[id],(err,result)=>{
+        if(err) return callback(false)
+        callback(true)
+      })
     }
 }
