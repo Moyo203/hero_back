@@ -32,5 +32,12 @@ let heroCtrl = require('./controller')
 .post('/addHeroInfo',(req,res)=>{
     heroCtrl.addHeroInfo(req,res)
 })
+// 编辑英雄数据
+.get('/showOneHeroInfo',(req,res)=>{
+    heroCtrl.showOneHeroInfo(req,res)
+})
+.post('/updateHeroInfo',(req,res)=>{
+     heroCtrl.updateHeroInfo(req,res)
+ })
 //暴露路由
 module.exports = router  

@@ -26,6 +26,7 @@ module.exports = {
         res.render('info', {})
 
     },
+    // 获取全部英雄数据
     getAllHeroInfo(req,res){
         heroModel.getAllHeroData((err,result)=>{
             if(err) return res.json({
@@ -39,6 +40,7 @@ module.exports = {
            })
         })
     },
+    // 查看一个英雄数据
     getOneHeroInfo(req,res){
         // console.log(req.query)
         let {id} = req.query;
@@ -80,6 +82,36 @@ module.exports = {
            res.json({
                code:201,
                msg:'添加失败'
+           })
+        })
+    },
+    // 编辑英雄数据
+    showOneHeroInfo(req,res){
+        let {id} = req.query;
+        heroModel.getOneHeroInfo(id,(err,result)=>{
+            if(err) return res.json({
+                code:201,
+                msg:'获取英雄失败'
+            })
+            res.json({
+                code:200,
+                msg:'获取成功',
+                data:result
+            })
+        })
+    },
+    // 更新英雄数据
+    updateHeroInfo(req,res){
+        let hero = req.body
+        hero.ctime = moment().format('YYYY-MM-DD HH:mm:ss')
+        heroModel.updateHeroInfo(hero,result=>{
+            if(result) return res.json({
+                code:200,
+                msg:'更新成功'
+           })
+           res.json({
+               code:201,
+               msg:'更新失败'
            })
         })
     }
